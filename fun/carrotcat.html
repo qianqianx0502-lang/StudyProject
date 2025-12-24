@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猫咪和物品小游戏</title>
+    <style>
+        body {
+            font-family: "微软雅黑", Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 200px;
+            cursor: none; /* 隐藏系统默认鼠标 */
+            position: relative; /* 为自定义鼠标定位 */
+        }
+        .custom-cursor {
+            position: absolute;
+            width: 40px; /* 光标大小，可调整 */
+            height: 40px;
+            border-radius: 50%;
+            pointer-events: none; /* 不阻挡点击事件 */
+            z-index: 9999; /* 始终在最上层 */
+            transform: translate(-50%, -50%); /* 让图片中心对准鼠标位置 */
+            transition: transform 0.05s ease; /* 跟随更顺滑 */
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative; /* 防止容器遮挡鼠标 */
+            z-index: 1;
+        }
+        .items {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin: 40px 0;
+        }
+        .item-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: 3px solid transparent;
+        }
+        .item-img:hover {
+            transform: scale(1.08);
+            border-color: #4299e1;
+        }
+        .prompt {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <img
+        src="https://ts1.tc.mm.bing.net/th/id/OIP-C.7DOwhoeDZLiVkF5xRgmKTgHaHa?w=193&h=193&c=8&rs=1&qlt=90&o=6&cb=ucfimg1&dpr=1.5&pid=3.1&rm=2&ucfimg=1"
+        alt="猫咪光标"
+        class="custom-cursor"
+        id="customCursor"
+    >
+
+    <div class="game-container">
+        <div class="items">
+            <img
+                src="https://img95.699pic.com/photo/30782/1876.jpg_wh860.jpg"
+                alt="胡萝卜"
+                class="item-img"
+                id="carrot"
+            >
+            <img
+                src="https://tse2-mm.cn.bing.net/th/id/OIP-C.djnO2QvfQaQG6VhBWoCTewHaHa?w=177&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1"
+                alt="纸巾"
+                class="item-img"
+                id="tissue"
+            >
+        </div>
+
+        <div class="prompt" id="prompt-text">加载中</div>
+    </div>
+
+    <script>
+        const customCursor = document.getElementById('customCursor');
+        const carrotEl = document.getElementById('carrot');
+        const tissueEl = document.getElementById('tissue');
+        const promptTextEl = document.getElementById('prompt-text');
+
+        // 自定义鼠标跟随逻辑
+        document.addEventListener('mousemove', function(e) {
+            // 让猫咪图片跟随鼠标坐标
+            customCursor.style.left = e.clientX + 'px';
+            customCursor.style.top = e.clientY + 'px';
+        });
+
+        // 提示词逻辑
+        const prompts = ['萝卜', '纸巾'];
+        let currentPrompt = getRandomPrompt();
+        promptTextEl.textContent = `请点击：${currentPrompt}`;
+
+        // 胡萝卜点击事件
+        carrotEl.addEventListener('click', function() {
+            if (currentPrompt === '萝卜') {
+                alert('真棒！');
+                currentPrompt = getRandomPrompt();
+                promptTextEl.textContent = `请点击：${currentPrompt}`;
+            }
+        });
+
+        // 纸巾点击事件
+        tissueEl.addEventListener('click', function() {
+            if (currentPrompt === '纸巾') {
+                alert('真棒！');
+                currentPrompt = getRandomPrompt();
+                promptTextEl.textContent = `请点击：${currentPrompt}`;
+            }
+        });
+
+        // 随机提示词函数
+        function getRandomPrompt() {
+            return prompts[Math.floor(Math.random() * prompts.length)];
+        }
+    </script>
+</body>
+</html>
